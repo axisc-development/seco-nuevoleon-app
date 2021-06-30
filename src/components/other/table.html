@@ -1,0 +1,189 @@
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width'>
+
+  <link href="https://www.seco-dev.com/static/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #131313;
+    }
+
+    .table-responsive {
+      border: none;
+    }
+
+    #chart {
+      width: 100%;
+      min-height: 130px;
+    }
+    rect {
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+      -webkit-touch-callout: none;
+    }
+
+    .primero {
+      border: 1px solid #1c1c1c !important;
+      background-color: #131313 !important;
+      color: #c6b45a;
+    }
+
+    .primero.rojo {
+      background: #8f0000 !important;
+      border: 1px solid #2a2a2b !important;
+      color: #fff !important;
+    }
+
+    .table-dark, .table-dark > td, .table-dark > th {
+      background-color: #2a2a2b !important;
+    }
+
+    .td-verde {
+      color: green;
+    }
+
+    .td-rojo {
+      color: red;
+    }
+
+    .text-dorado {
+      color: #c6b45a;
+    }
+
+    .negrita {
+      font-weight: bold;
+    }
+
+    td, th {
+      text-align: center;
+      font-size: 12px !important;
+      background: #cbd2d3;
+      border: 1px solid #2a2a2b;
+    }
+
+    .bg-danger {
+      background: #a08e38;
+      color: #fff;
+      border: 1px solid #2a2a2b !important;
+    }
+
+    .bg-danger.t2 {
+      background: #8b7e3e !important;
+      border: 1px solid #2a2a2b !important;
+    }
+
+    .bg-danger.primero {
+      background: #2a2a2b !important;
+      border: 1px solid #2a2a2b !important;
+    }
+
+
+    .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+      padding: 4px 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="table-responsive">
+    <table id="statsTable" class="table table-sm">
+      <tr>
+        <th scope="row" class="bg-danger primero"></th>
+        <td class="bg-danger">ENE</td>
+        <td class="bg-danger">FEB</td>
+        <td class="bg-danger">MAR</td>
+        <td class="bg-danger">ABR</td>
+        <td class="bg-danger">MAY</td>
+        <td class="bg-danger">JUN</td>
+        <td class="bg-danger">JUL</td>
+        <td class="bg-danger">AGO</td>
+        <td class="bg-danger">SEP</td>
+        <td class="bg-danger">OCT</td>
+        <td class="bg-danger">NOV</td>
+        <td class="bg-danger">DIC</td>
+        <td class="bg-danger t2 negrita">TOTAL ANUAL</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- <script src="./mock-data.js"></script> -->
+  <script src="https://www.seco-dev.com/static/bower_components/jquery/dist/jquery.min.js"></script>
+
+  <script>
+    $(window).on( "load", function() {
+      function createTable(data) {
+        const years = [data.currentY, data.previousY];
+        try{
+          if ($("#tr0").length) {
+            $("#tr0").remove();
+            $("#tr1").remove();
+            $("#trSubtraction").remove();
+            $("#trAverage").remove();
+          }
+
+          for (var i = 1; i >= 0; i--) {
+            $("#statsTable").append("<tr class='table-light' id='tr" + i + "'></tr>");
+            $("#tr" + i).append("<th scope='row' class='primero rojo'>Año " + years[i.toString()].name + "</th>");
+            for (var j = 0; j < 12; j++) {
+              $("#tr" + i).append("<td>" + years[i.toString()].data[j.toString()] + "</td>");
+            }
+            $("#tr" + i).append("<td class='negrita'>" + years[i.toString()].total + "</td>");
+          }
+
+          $("#statsTable").append("<tr class='table-light' id='trSubtraction'></tr>");
+          $("#trSubtraction").append("<th scope='row' class='primero rojo'>DIFERENCIA</th>");
+          for (var i = 0; i < 12; i++) {
+            if (data.subtraction.data[i] === '-') {
+              $("#trSubtraction").append("<td>" + data.subtraction.data[i] + "</td>");
+            } else {
+              const valueI = parseInt(data.subtraction.data[i])
+              
+              if ( valueI < 1 )
+                classNameTd = 'td-verde';
+              else
+                classNameTd = 'td-rojo';
+
+              $("#trSubtraction").append("<td class='" + classNameTd + "'>" + valueI + "</td>");
+            }
+          }
+
+          if (data.subtraction.total < 1) {
+            $("#trSubtraction").append("<td class='td-verde negrita'>" + data.subtraction.total + "</td>");
+          } else {
+            $("#trSubtraction").append("<td class='td-rojo' negrita>" + data.subtraction.total + "</td>");
+          }
+          
+
+          $("#statsTable").append("<tr class='table-dark' id='trAverage'></tr>");
+          $("#trAverage").append("<th scope='row' class='primero'>PROM. DIARIO</th>");
+          for (var j = 0; j < 12; j++) {
+            $("#trAverage").append("<td class='text-dorado'>" + data.average.data[j.toString()] + "</td>");
+          }
+          $("#trAverage").append("<td class='text-dorado negrita'>" + data.average.total + "</td>");
+
+        } catch(err) {
+          alert('Creaer tabla 2.2: ' + err);
+        }
+      }
+
+      const event = new Event('WebViewBridge');
+      window.dispatchEvent(event);
+
+      window.WebViewBridge = {
+        onMessage: _onMessage,
+      };
+
+      function _onMessage(data) {
+        createTable(data);
+      }
+
+      // createTable(mockData.monthly_sums_by_year);
+    });
+  </script>
+
+  <script>
+    window.postMessage("Sending data from WebView");
+  </script>
+</body>
+</html>

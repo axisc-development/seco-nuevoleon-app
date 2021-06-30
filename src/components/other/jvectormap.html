@@ -1,0 +1,228 @@
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width'>
+
+  <link href='https://www.seco-dev.com/static/lib/jvectormap/jquery-jvectormap-1.2.2.css' rel='stylesheet' />
+
+  <style>
+    html {
+      background: #131313;
+    }
+
+    #map {
+      width: 100%;
+      max-height: 100px;
+    }
+
+    path {
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+      -webkit-touch-callout: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script src="https://www.seco-dev.com/static/bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="https://www.seco-dev.com/static/lib/jvectormap/jquery-jvectormap-1.2.2.min.js" charset="utf-8"></script>
+  <script src="https://www.seco-dev.com/static/lib/jvectormap/jvectormap.nuevo_leon.js"></script>
+  <!-- <script src="http://192.168.100.25:8000/static/lib/jvectormap/jvectormap.nuevo_leon.js"></script> -->
+
+  <script>
+    $(window).on( "load", function() {
+      window.is_created = false;
+      window.prev_selection = '';
+
+      function createMap() {
+        map = $('#map').vectorMap({
+          map: 'nuevo_leon',
+          backgroundColor: "#transparent",
+          zoomOnScroll: false,
+          zoomMax: 12,
+          zoomStep: 1.2,
+          focusOn: {
+            x: 0.5,
+            y: 0.45,
+            scale: 1.3,
+          },
+          regionStyle: {
+            initial: {
+              stroke: "#C6B45A",
+              "stroke-width": 2,
+            },
+            hover: {
+              "fill-opacity": 0
+            },
+            selected: {
+              fill: '#F4A582'
+            }
+          },
+          series: {
+            regions: [{
+              attribute: 'fill',
+            }],
+          },
+        });
+
+        map.on('click', function(e) {
+          if (e.target.className.baseVal === 'jvectormap-region jvectormap-element') {
+            let municipio = e.target.dataset.code
+            if (prev_selection === municipio) {
+              window.postMessage(municipio.toLowerCase());
+            } else {
+              window.prev_selection = municipio
+            }
+          }
+        });
+      }
+
+      function obtenerColores() {
+        //         gris     verde       ama          rojo       marron
+        return ["#626262", "#00FF23",  "#F7C028", "#B92424", "#671212"]
+      }
+
+      function generateColors(data) {
+        var colores = obtenerColores();
+        new_data = {}
+
+        for (key in data.series) {
+          perdidas = data.series[key]
+          keyC = key
+
+          crime = data.crime
+
+          if (crime === 'homicidio' || crime === 'violenciafamiliar') {
+            if(perdidas===0) {
+              new_data[keyC] = colores[0]
+            }
+            else if(perdidas<4) {
+              new_data[keyC] = colores[1]
+            }
+            else if(perdidas<11) {
+              new_data[keyC] = colores[2]
+            }
+            else if(perdidas<16) {
+              new_data[keyC] = colores[3]
+            }
+            else if(perdidas>=16) {
+              new_data[keyC] = colores[4]
+            }
+          } else if (crime === 'secuestro' || crime === 'detencionsujetos') {
+            if(perdidas===0) {
+              new_data[keyC] = colores[0]
+            }
+            else if(perdidas<2) {
+              new_data[keyC] = colores[1]
+            }
+            else if(perdidas<5) {
+              new_data[keyC] = colores[2]
+            }
+            else if(perdidas<8) {
+              new_data[keyC] = colores[3]
+            }
+            else if(perdidas>=8) {
+              new_data[keyC] = colores[4]
+            }
+          } else if (crime === 'extorsion') {
+            if(perdidas===0) {
+              new_data[keyC] = colores[0]
+            }
+            else if(perdidas<2) {
+              new_data[keyC] = colores[1]
+            }
+            else if(perdidas<6) {
+              new_data[keyC] = colores[2]
+            }
+            else if(perdidas<11) {
+              new_data[keyC] = colores[3]
+            }
+            else if(perdidas>=11) {
+              new_data[keyC] = colores[4]
+            }
+          } else if (crime === 'vehiculo') {
+            if(perdidas===0) {
+              new_data[keyC] = colores[0]
+            }
+            else if(perdidas<11) {
+              new_data[keyC] = colores[1]
+            }
+            else if(perdidas<16) {
+              new_data[keyC] = colores[2]
+            }
+            else if(perdidas<21) {
+              new_data[keyC] = colores[3]
+            }
+            else if(perdidas>=21) {
+              new_data[keyC] = colores[4]
+            }
+          } else if (crime === 'casa') {
+            if(perdidas===0) {
+              new_data[keyC] = colores[0]
+            }
+            else if(perdidas<11) {
+              new_data[keyC] = colores[1]
+            }
+            else if(perdidas<16) {
+              new_data[keyC] = colores[2]
+            }
+            else if(perdidas<21) {
+              new_data[keyC] = colores[3]
+            }
+            else if(perdidas>=21) {
+              new_data[keyC] = colores[4]
+            }
+          } else if (crime === 'negocio') {
+            if(perdidas===0) {
+              new_data[keyC] = colores[0]
+            }
+            else if(perdidas<11) {
+              new_data[keyC] = colores[1]
+            }
+            else if(perdidas<16) {
+              new_data[keyC] = colores[2]
+            }
+            else if(perdidas<21) {
+              new_data[keyC] = colores[3]
+            }
+            else if(perdidas>=21) {
+              new_data[keyC] = colores[4]
+            }
+          }
+        }
+        return new_data
+      }
+
+      function updateMap(data) {
+        const mapObject = $('#map').vectorMap('get', 'mapObject');
+
+        mapObject.series.regions[0].setValues(generateColors(data))
+      }
+
+      createMap();
+      window.is_created = true;
+
+      const event = new Event('WebViewBridge');
+      window.dispatchEvent(event);
+
+      window.WebViewBridge = {
+        onMessage: _onMessage,
+      };
+
+      function _onMessage(data) {
+        updateMap(data);
+        try {
+          if (!window.is_created) {
+            createMap();
+            window.is_created = true;
+          }
+          updateMap(data);
+        } catch (error) {
+          window.ReactNativeWebView.postMessage(error)
+        }
+      }
+
+      // updateMap(mockData)
+    });
+  </script>
+</body>
+</html>
