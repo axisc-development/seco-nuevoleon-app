@@ -7,7 +7,8 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "setup": "npm i && npx pod-install"
   },
   "dependencies": {
     "@highcharts/highcharts-react-native": "^3.1.7",
