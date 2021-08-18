@@ -50,7 +50,6 @@ This may take a few minutes.
 
 ```
 npx react-native run-ios
-
 ```
 
 Once the app starts. The test credentials to enter the application are:
