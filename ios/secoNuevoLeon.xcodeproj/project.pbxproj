@@ -11,6 +11,7 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		3D6DD0B32704CDCA0069AED7 /* Void.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6DD0B22704CDCA0069AED7 /* Void.swift */; };
 		7684BBB2A42DECD52F136EEF /* libPods-secoNuevoLeon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A1897529E4894E81E70213 /* libPods-secoNuevoLeon.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		D28A1196292EC1226927DC82 /* libPods-secoNuevoLeon-secoNuevoLeonTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C4831C6654BB8A4A34FB503 /* libPods-secoNuevoLeon-secoNuevoLeonTests.a */; };
@@ -38,6 +39,8 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = secoNuevoLeon/main.m; sourceTree = "<group>"; };
 		1C4831C6654BB8A4A34FB503 /* libPods-secoNuevoLeon-secoNuevoLeonTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-secoNuevoLeon-secoNuevoLeonTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2626352E9D7969FE35D9D5CD /* Pods-secoNuevoLeon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-secoNuevoLeon.debug.xcconfig"; path = "Target Support Files/Pods-secoNuevoLeon/Pods-secoNuevoLeon.debug.xcconfig"; sourceTree = "<group>"; };
+		3D6DD0B12704CDC90069AED7 /* secoNuevoLeon-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "secoNuevoLeon-Bridging-Header.h"; sourceTree = "<group>"; };
+		3D6DD0B22704CDCA0069AED7 /* Void.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Void.swift; sourceTree = "<group>"; };
 		3D968A3E26781FEA00BE8E59 /* secoNuevoLeon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = secoNuevoLeon.entitlements; path = secoNuevoLeon/secoNuevoLeon.entitlements; sourceTree = "<group>"; };
 		3FAC82F59394E6CDDEFF3801 /* Pods-secoNuevoLeon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-secoNuevoLeon.release.xcconfig"; path = "Target Support Files/Pods-secoNuevoLeon/Pods-secoNuevoLeon.release.xcconfig"; sourceTree = "<group>"; };
 		51944D88C78620246006FBD5 /* Pods-secoNuevoLeon-secoNuevoLeonTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-secoNuevoLeon-secoNuevoLeonTests.release.xcconfig"; path = "Target Support Files/Pods-secoNuevoLeon-secoNuevoLeonTests/Pods-secoNuevoLeon-secoNuevoLeonTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -105,6 +108,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				3D6DD0B22704CDCA0069AED7 /* Void.swift */,
+				3D6DD0B12704CDC90069AED7 /* secoNuevoLeon-Bridging-Header.h */,
 			);
 			name = secoNuevoLeon;
 			sourceTree = "<group>";
@@ -209,7 +214,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1300;
 					};
 				};
 			};
@@ -414,6 +419,7 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				3D6DD0B32704CDCA0069AED7 /* Void.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,6 +438,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B159F2E84E64A9C0A9C10363 /* Pods-secoNuevoLeon-secoNuevoLeonTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 7NNUAWFDU7;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -460,6 +467,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 51944D88C78620246006FBD5 /* Pods-secoNuevoLeon-secoNuevoLeonTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 7NNUAWFDU7;
@@ -504,6 +512,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.axisc.seco.nuevoleon;
 				PRODUCT_NAME = secoNuevoLeon;
+				SWIFT_OBJC_BRIDGING_HEADER = "secoNuevoLeon-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -532,6 +541,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.axisc.seco.nuevoleon;
 				PRODUCT_NAME = secoNuevoLeon;
+				SWIFT_OBJC_BRIDGING_HEADER = "secoNuevoLeon-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
