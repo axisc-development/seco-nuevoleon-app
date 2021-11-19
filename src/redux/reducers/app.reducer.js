@@ -20,10 +20,6 @@ import {
   CHANGE_TAB_COLOR,
 } from '../../constants';
 
-// const today = new Date();
-// const yearSelected = today.getFullYear();
-// const monthSelected = today.getMonth();
-
 const yearsAgo = 2; // años que se veran en el slider
 const totalMonths = 12 * yearsAgo + 1;
 const months = [
