@@ -40,7 +40,7 @@ should be able to just run a few commands to get set up:
 ```
 git clone https://github.com/axisc-development/seco-nuevoleon-app.git
 cd seco-nuevoleon-app
-node setup
+npm run setup
 ```
 
 This may take a few minutes.
